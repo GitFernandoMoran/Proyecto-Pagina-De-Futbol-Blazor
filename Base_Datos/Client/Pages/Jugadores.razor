@@ -1,0 +1,96 @@
+﻿@page "/jugadores"
+@inject HttpClient _http
+@inject NavigationManager _navegar
+
+<h1>Jugadores</h1>
+@if (losjugadores.Count > 0)
+{
+    <table class="table table-striped">
+        <thead>
+            <tr>
+                <th>Nombre del jugador</th>
+                <th>Partidos jugados</th>
+                <th>Goles</th>
+                <th>Asistencias</th>
+                <th><img src="https://cdn-icons-png.flaticon.com/512/7153/7153240.png" width="40px" style="margin-left:-15px"></th>
+                <th><img src="https://cdn-icons-png.flaticon.com/512/5524/5524644.png" width="40px" style="margin-left:-15px"></th>
+                <th>Equipo</th>
+                <th>Fotografia</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (JugadorDTO jugador in losjugadores)
+            {
+                <tr>
+                    <td>
+                        @jugador.Nombre_jugador
+                    </td>
+                    <td>
+                        @jugador.Partidos_jugados
+                    </td>
+                    <td>
+                        @jugador.Goles
+                    </td>
+                    <td>
+                        @jugador.Asistencias
+                    </td>
+                    <td>
+                        @jugador.Tarjetas_amarillas
+                    </td>
+                    <td>
+                        @jugador.Tarjetas_rojas
+                    </td>
+                    <td>
+                        @jugador.Equipo
+                    </td>
+                    <td>
+                        <img src="@jugador.Fotografia" style="width:90px">
+                    </td>
+                    <td>
+                        <button class="btn btn-sm" @onclick="()=>Modificar(jugador.Id)"><span class="oi oi-pencil"></span></button>
+                        <button class="btn btn-sm" @onclick="()=>Eliminar(jugador.Id)"><span class="oi oi-trash"></span></button>
+                    </td>
+
+                </tr>
+            }
+        </tbody>
+    </table>
+}
+else
+{
+    <div class="alert alert-info" role="alert">
+        No existen jugadores registrados
+    </div>
+}
+
+
+@code {
+    //Ctrl+. (Para resolver errores)
+    private List<JugadorDTO>? losjugadores = new();
+
+    private async Task CargarDatos()
+    {
+        losjugadores = await _http.GetFromJsonAsync<List<JugadorDTO>>("api/jugadores");
+    }
+
+    protected override async Task OnInitializedAsync()
+    {
+        await CargarDatos();
+    }
+
+    private void Agregar()
+    {
+        _navegar.NavigateTo("/jugador/nueva");
+    }
+
+    private async Task Eliminar(int id)
+    {
+        await _http.DeleteAsync($"api/jugadores/{id}");
+        await CargarDatos();
+    }
+
+    private void Modificar(int id)
+    {
+        _navegar.NavigateTo($"/jugador/editar/{id}");
+    }
+}

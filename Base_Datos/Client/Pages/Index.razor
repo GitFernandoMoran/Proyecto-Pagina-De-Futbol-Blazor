@@ -1,0 +1,43 @@
+﻿@page "/"
+
+<PageTitle>Index</PageTitle>
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Mi Página con Fondo de Imagen</title>
+    <style>
+        body {
+            margin: 0;
+            padding: 0;
+            background-image: url('https://th.bing.com/th/id/OIG.hm9Bjo9qj3P4_sv3MbKK?pid=ImgGn');
+            background-size: cover;
+            background-position: center;
+            background-repeat: no-repeat;
+            background-attachment: fixed;
+            height: 100%;
+            font-family: 'Arial', sans-serif;
+        }
+
+        .contenido {
+            text-align: center;
+            padding: 50px;
+            color: white;
+        }
+
+        .texto-con-contorno {
+            color: #fff; /* Color del texto */
+            text-shadow: -1px -1px 0 #000, 1px -1px 0 #000, -1px 1px 0 #000, 1px 1px 0 #000; /* Desplazamiento y color del contorno */
+        }
+
+    </style>
+</head>
+<body>
+    <div class="contenido">
+        <h1 class="texto-con-contorno" style="font-size:70px">Futbol Rapido</h1>
+        <p class="texto-con-contorno" style="font-size:30px">Bienvenidos a Futbol Rapido, la página donde conocerás todo acerca de jugadores, equipos y ligas de fútbol.</p>
+        <img src="https://concepto.de/wp-content/uploads/2015/02/futbol-1-e1550783405750.jpg" width="800px">
+    </div>
+</body>
+</html>
